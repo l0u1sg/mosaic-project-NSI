@@ -10,3 +10,4 @@ from final_preliminar_exo import *
 from functions import *
 
 resize_folder("image/", "mosaic-test/")
+mean_folder("mosaic-test/")
