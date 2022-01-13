@@ -30,10 +30,5 @@ def find_nearest(d, vref):
             vrefNear = vrefTest[vrefPositionMore]
         else :
             vrefNear = vrefTest[vrefPositionLess]
-        print("The closest number to the vRef is ", vrefNear)
     return vrefNear
 
-vref = 45
-dico = gen_dict(50)
-vignette = find_nearest(dico, vref)
-print("La vignette la plus proche de", vref, "est", vignette)
