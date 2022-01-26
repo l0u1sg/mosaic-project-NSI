@@ -1,4 +1,5 @@
 import os
+from statistics import mean
 from PIL import Image
 
 # Fonction pour ouvrir une image avec pillow // Function to open an image with pillow
@@ -19,31 +20,26 @@ def convert_to_gray(img):
 def show_image(img):
     img.show()
 
-# Calculer la valeur moyenne des niveaux de gris de chaque pixel d'une image et enregistrer la valeur dans un dictionnaire // Calculate the average value of the grayscale levels of each pixel of an image and save the value in a dictionary
+# Calcule la valeur moyenne des niveaux de gris par bloc de 20x20 pixels et range cette valeur dans un dictionnaire // Calculate the average value of the grayscale levels by block of 20x20 pixels and range this value in a dictionary
 def mean_value(img):
     """
-    Calculate the average value of the grayscale levels of each pixel of an image
+    Calcule la valeur moyenne des niveaux de gris par bloc de 20x20 pixels // Calculate the average value of the grayscale levels of each pixel of a 20x20 pixel block
     """
-    # Dictionnaire pour stocker la valeur moyenne des niveaux de gris de chaque pixel de l'image // Dictionary to store the average value of the grayscale levels of each pixel of the image
-    mean_dict = {}
-    # Parcourir tous les pixels de l'image // Iterate through all the pixels of the image
-    for x in range(img.size[0]):
-        for y in range(img.size[1]):
-            # Récupérer la valeur du pixel // Get the pixel value
-            pixel = img.getpixel((x,y))
-            # Vérifier si la valeur du pixel est déjà dans le dictionnaire // Check if the pixel value is already in the dictionary
-            if pixel in mean_dict:
-                # Ajouter 1 au compteur de la valeur du pixel // Add 1 to the counter of the pixel value
-                mean_dict[pixel] += 1
-            else:
-                # Ajouter la valeur du pixel au dictionnaire // Add the pixel value to the dictionary
-                mean_dict[pixel] = 1
-    # Parcourir le dictionnaire pour calculer la valeur moyenne des niveaux de gris de chaque pixel // Iterate through the dictionary to calculate the average value of the grayscale levels of each pixel
-    for key, value in mean_dict.items():
-        # Calculer la valeur moyenne des niveaux de gris de chaque pixel // Calculate the average value of the grayscale levels of each pixel
-        mean_dict[key] = key / value
-    # Afficher la valeur moyenne des niveaux de gris de chaque pixel // Display the average value of the grayscale levels of each pixel
-    print(mean_dict)
+    w = img.width
+    h = img.height
+    image_dict = {}
+    if w == 20 and h == 20:
+        for x in range(w):
+            for y in range(h):
+                pixel = img.getpixel((x, y))
+                image_dict[(x, y)] = pixel
+        a = 0
+        for i in image_dict.values():
+            a = a + i  
+        a = a / i
+        return a
+    else:
+        print("Pas vignette")
 
 # Redimensionner les images d'un dossier et le places dans un autre dossier // Resize the images of a folder and put them in another folder
 def resize_folder(path_in, path_out):
@@ -71,6 +67,7 @@ def mean_folder(path):
     """
     Calculate the average value of the grayscale levels of each pixel of the images of a folder
     """
+    dict_mean = {}
     # Parcourir tous les fichiers d'un dossier // Iterate through all the files of a folder
     for file in os.listdir(path):
         # Vérifier si le fichier est une image // Check if the file is an image
@@ -79,6 +76,10 @@ def mean_folder(path):
             img = open_image(path + file)
             # Calculer la valeur moyenne des niveaux de gris de chaque pixel de l'image // Calculate the average value of the grayscale levels of each pixel of the image
             mean_value(img)
+            for i in range(len(file)):
+                dict_mean[file] = mean_value(img)
+    return dict_mean
+
 # Fonction pour convertir toutes les images d'un dossier en niveau de gris // Function to convert all the images of a folder to grayscale
 def convert_to_gray_folder(path):
     """
@@ -100,17 +101,13 @@ def crop_image(img):
     """
     Crop an image in a multiple of 20
     """
-    # Calculer la taille de l'image // Calculate the size of the image
-    size = img.size
-    # Calculer la taille de l'image en niveau de gris // Calculate the size of the image in grayscale
-    size_gray = img.convert('L').size
-    # Calculer la taille de l'image en niveau de gris en fonction de la taille de l'image // Calculate the size of the grayscale image in function of the size of the image
-    size_gray = (size_gray[0] // 20, size_gray[1] // 20)
-    # Calculer la taille de l'image en fonction de la taille de l'image en niveau de gris // Calculate the size of the image in function of the size of the grayscale image
-    size = (size[0] // 20, size[1] // 20)
-    # Calculer la taille de l'image en fonction de la taille de l'image en niveau de gris // Calculate the size of the image in function of the size of the grayscale image
-    img = img.resize(size)
-    # Calculer la taille de l'image en niveau de gris en fonction de la taille de l'image // Calculate the size of the grayscale image in function of the size of the image
-    img_gray = img.convert('L').resize(size_gray)
-    # Sauvegarder l'image // Save the image
-    return img_gray
+    img_size = img.size
+    w = img_size[0]
+    h = img_size[1]
+    c = 20
+    new_w = w // c
+    new_h = h // c
+    margeW = w - (new_w * c)
+    margeH = h - (new_h * c)
+    new_img = img.crop((0, 0, w - margeW, h - margeH))
+    return new_img
