@@ -95,16 +95,22 @@ def convert_to_gray_folder(path):
             # Sauvegarder l'image en niveau de gris // Save the grayscale image
             save_image(img_gray, path + file)
 
-# Fonction pour redimenssionner une image avec les dimensions les plus proches dans un multiple de 20 // Function to resize an image with the dimensions closest to a multiple of 20
-def resize_to_multiple_of_20(img):
+# Fonction pour rogner une image dans un multiple de 20 // Function to crop an image in a multiple of 20
+def crop_image(img):
     """
-    Resize an image with the dimensions closest to a multiple of 20
+    Crop an image in a multiple of 20
     """
     # Calculer la taille de l'image // Calculate the size of the image
-    width, height = img.size
-    # Calculer la taille de l'image avec les dimensions les plus proches dans un multiple de 20 // Calculate the size of the image with the dimensions closest to a multiple of 20
-    new_width = (width // 20) * 20
-    new_height = (height // 20) * 20
-    # Redimensionner l'image // Resize the image
-    img = img.resize((new_width, new_height))
-    return img
+    size = img.size
+    # Calculer la taille de l'image en niveau de gris // Calculate the size of the image in grayscale
+    size_gray = img.convert('L').size
+    # Calculer la taille de l'image en niveau de gris en fonction de la taille de l'image // Calculate the size of the grayscale image in function of the size of the image
+    size_gray = (size_gray[0] // 20, size_gray[1] // 20)
+    # Calculer la taille de l'image en fonction de la taille de l'image en niveau de gris // Calculate the size of the image in function of the size of the grayscale image
+    size = (size[0] // 20, size[1] // 20)
+    # Calculer la taille de l'image en fonction de la taille de l'image en niveau de gris // Calculate the size of the image in function of the size of the grayscale image
+    img = img.resize(size)
+    # Calculer la taille de l'image en niveau de gris en fonction de la taille de l'image // Calculate the size of the grayscale image in function of the size of the image
+    img_gray = img.convert('L').resize(size_gray)
+    # Sauvegarder l'image // Save the image
+    return img_gray

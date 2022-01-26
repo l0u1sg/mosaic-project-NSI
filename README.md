@@ -16,7 +16,7 @@ The functions.py file contains the different functions that will be used in the 
 - The function `resizeTo20x20()` will resize an image to 20x20 pixels.
 - The function `mean_folder()` will return the average value of the grayscale levels of each pixel of all the images in a folder.
 - The function `convert_to_gray_folder()` will convert all the images in a folder to grayscale.
-- The function resize_to_multiple_of_20() will resize all the images in a folder to a multiple of 20.  
+- The function `resize_to_multiple_of_20()` will resize all the images in a folder to a multiple of 20.  
 
 *The functions marked above are only provisional and may change by the end of the programme's production*
 
