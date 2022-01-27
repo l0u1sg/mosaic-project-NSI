@@ -9,5 +9,4 @@ Created on Thu Jan  6 15:28:21 2022
 from final_preliminar_exo import *
 from functions import *
 
-mean_value(open_image("mosaic-test/001.png"))
-print(mean_folder("mosaic-test/"))
+main("foyer.jpg", "mosaic-test/", "Image20x20Folder/")
