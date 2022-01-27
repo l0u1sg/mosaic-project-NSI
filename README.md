@@ -5,20 +5,16 @@ Here is one of the projects we have to do in NSI (Numerical Computer Science), t
 - The images folder contains the images that will be used in the mosaic.
 - The functions.py file contains the functions that will be used in the program.
 
-## The different functions
-The functions.py file contains the different functions that will be used in the program.
-- The function `open_image()` will open an image and return it as a numpy array.
-- The function `save_image()` will save an image as a .png file.
-- The function `convert_to_gray()` will convert an image to grayscale.
-- The function `show_image()` will display an image.
-- The function `mean_value()` will return the average value of the grayscale levels of each pixel of an image
-- The function `resize_folder()` will resize all the images in a folder.
-- The function `resizeTo20x20()` will resize an image to 20x20 pixels.
-- The function `mean_folder()` will return the average value of the grayscale levels of each pixel of all the images in a folder.
-- The function `convert_to_gray_folder()` will convert all the images in a folder to grayscale.
-- The function `resize_to_multiple_of_20()` will resize all the images in a folder to a multiple of 20.  
+## How to create a mosaic
+1. Import your reference image into the current folder. 
+No need to import the thumbnails, they are already in 20x20 format. A function will be added soon to put custom thumbnails that will be automatically cropped
 
-*The functions marked above are only provisional and may change by the end of the programme's production*
+2. Open the main.py file and replace the values with your image values
+
+3. Run the program.
+Depending on the size of the image (which is automatically doubled), the processing time may be long.
+
+
 
 # The goal of the project 🏁
 The goal of the project is to achieve a programme similar to this repo : https://github.com/codebox/mosaic
