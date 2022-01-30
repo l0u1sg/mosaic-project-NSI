@@ -6,4 +6,10 @@ Image20x20Folder/
 *.jpg_blank.jpg
 *.jpg_crop.jpg
 *.jpg_gray.jpg
+*.jpeg_blank.jpg
+*.jpeg_crop.jpg
+*.jpeg_gray.jpg
+*.png_blank.jpg
+*.png_crop.jpg
+*.png_gray.jpg
 mosaic.jpg

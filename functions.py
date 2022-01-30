@@ -6,7 +6,7 @@ import time
 from tkinter import image_types
 from PIL import Image
 
-def main(BASEDIMAGE, THUMBNAILFOLDER, IMAGE20X20FOLDER):
+def main(BASEDIMAGE, THUMBNAILFOLDER, IMAGE20X20FOLDER, DIM):
     """
     Main function
     """
@@ -28,7 +28,7 @@ def main(BASEDIMAGE, THUMBNAILFOLDER, IMAGE20X20FOLDER):
     print("Transformation de l'image // Transformation of the image")
     img = open_image(BASEDIMAGE)
     save_image(convert_to_gray(img), BASEDIMAGE + "_gray.jpg")
-    save_image(crop_image(BASEDIMAGE + "_gray.jpg"), BASEDIMAGE + "_crop.jpg")
+    save_image(crop_image(BASEDIMAGE + "_gray.jpg", DIM), BASEDIMAGE + "_crop.jpg")
     print("Création des miniatures de la grande image // Creation of thumbnails of the big image")
     time.sleep(5)
     cutImageInto20x20(open_image(BASEDIMAGE + "_crop.jpg"), IMAGE20X20FOLDER)
@@ -156,7 +156,7 @@ def convert_to_gray_folder(path):
             ImageInCourse = ImageInCourse + 1
 
 # Fonction pour rogner une image dans un multiple de 20 // Function to crop an image in a multiple of 20
-def crop_image(img):
+def crop_image(img, DIM):
     """
     Crop an image in a multiple of 20
     """
@@ -170,7 +170,7 @@ def crop_image(img):
     margeW = w - (new_w * c)
     margeH = h - (new_h * c)
     new_img = img.crop((0, 0, w - margeW, h - margeH))
-    new_img_big = new_img.resize((new_img.size[0]*2,new_img.size[1]*2))
+    new_img_big = new_img.resize((new_img.size[0]*DIM,new_img.size[1]*DIM))
     # return new_img
     return new_img_big
 
