@@ -1,9 +1,6 @@
-from multiprocessing.connection import wait
 import os
-from statistics import mean
 import sys
 import time
-from tkinter import image_types
 from PIL import Image
 
 def main(BASEDIMAGE, THUMBNAILFOLDER, IMAGE20X20FOLDER, DIM):
