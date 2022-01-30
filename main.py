@@ -5,8 +5,14 @@ Created on Thu Jan  6 15:28:21 2022
 @author: Louis & Damien & GitHub Copilot
 """
 
-# Importation des modules 
+# Importation des modules // Import modules
 from final_preliminar_exo import *
 from functions import *
 
-main("foyer.jpg", "mosaic-test/", "Image20x20Folder/")
+# Définition des variables globales // Global variables definition
+IMG = "your_image_name.jpg"
+THUMBNAILS = "your_folder_name/"
+FOLDER = "your_folder_name/"
+SIZE = 2
+
+main(IMG, THUMBNAILS, FOLDER, SIZE)
