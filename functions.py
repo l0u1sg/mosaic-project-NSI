@@ -3,7 +3,7 @@ import sys
 import time
 from PIL import Image
 
-def main(BASEDIMAGE, THUMBNAILFOLDER, IMAGE20X20FOLDER, DIM):
+def main(BASEDIMAGE, THUMBNAILFOLDER, IMAGE20X20FOLDER, THUMBNAILOUT, DIM):
     """
     Main function
     """
@@ -15,13 +15,20 @@ def main(BASEDIMAGE, THUMBNAILFOLDER, IMAGE20X20FOLDER, DIM):
     # Vérifier si le dossier Thumbnail existe // Check if the folder Thumbnail exists
     if not os.path.exists(THUMBNAILFOLDER):
         print("Vérification du dossier Thumbnail // Check if the folder Thumbnail exists")
-        sys.exit("Le dossier Thumbnail n'existe pas // The Thumbnail folder does not exist")
+        os.makedirs(THUMBNAILFOLDER)
+    # Vérifier si le dossier ThumbailOut existe // Check if the folder ThumbailOut exists
+    if not os.path.exists(THUMBNAILOUT):
+        print("Vérification du dossier ThumbailOut // Check if the folder ThumbailOut exists")
+        os.makedirs(THUMBNAILOUT)
     # Vérifier si l'image existe // Check if the image exists
     if not os.path.exists(BASEDIMAGE):
         print("Vérification de l'image // Check if the image exists")
         sys.exit("L'image n'existe pas // The image does not exist")
     
     print("Tous les checks sont terminés, on peut commencer le traitement // All checks are completed, we can start the processing")
+    print("Création des vignettes // Creation of thumbnails")
+    resize_folder(THUMBNAILFOLDER, THUMBNAILOUT)
+    convert_to_gray_folder(THUMBNAILOUT)
     print("Transformation de l'image // Transformation of the image")
     img = open_image(BASEDIMAGE)
     save_image(convert_to_gray(img), BASEDIMAGE + "_gray.jpg")
@@ -35,14 +42,14 @@ def main(BASEDIMAGE, THUMBNAILFOLDER, IMAGE20X20FOLDER, DIM):
     dico_grandeImage = mean_folder(IMAGE20X20FOLDER)
     print("Analyse des miniatures, cette opération peut prendre du temps // Analysis of the thumbnails, this operation can take some time")
     time.sleep(5)
-    dico_petiteImage = mean_folder(THUMBNAILFOLDER)
+    dico_petiteImage = mean_folder(THUMBNAILOUT)
     print("Analyse terminée // Analysis completed")
     print("Association des miniatures avec les grandes images, cette étape peut prendre du temps // Association of thumbnails with the large images, this operation can take some time")
     time.sleep(5)
     dicoCompare = compare_dict(dico_grandeImage, dico_petiteImage)
     print("Association terminée // Association completed")
     print("Création de la mosaique // Creation of the mosaic")
-    create_mosaic(dicoCompare, BASEDIMAGE + "_blank.jpg", THUMBNAILFOLDER)
+    create_mosaic(dicoCompare, BASEDIMAGE + "_blank.jpg", THUMBNAILOUT)
     print("Mosaique créée // Mosaic created")
 
 

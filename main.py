@@ -12,7 +12,8 @@ from functions import *
 # Définition des variables globales // Global variables definition
 IMG = "your_image_name.jpg"
 THUMBNAILS = "your_folder_name/"
+THUMBAILSOUT = "your_folder_name/"
 FOLDER = "your_folder_name/"
 SIZE = 2
 
-main(IMG, THUMBNAILS, FOLDER, SIZE)
+main(IMG, THUMBNAILS, FOLDER, THUMBAILSOUT, SIZE)
